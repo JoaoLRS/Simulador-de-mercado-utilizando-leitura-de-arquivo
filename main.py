@@ -218,7 +218,8 @@ def print_empresas(empresas):
 inserir_dados_finais("src/pessoas.txt")
 
 
-#TODO Você deve criar uma função parecida para inserir as empresas e castegoria 
+#TODO Você deve criar uma função parecida para inserir as empresas(esta localizada na pasta src/empresas.csv) 
+# e categoria (esta localizada na pasta src/catregorias.json) 
 empresas.append(Empresa("Moradia",     "    República A", "Aluguel, Várzea", 300.0,  qualidade=3))
 empresas.append(Empresa("Moradia",     "    República B", "Aluguel, Várzea", 300.0,  qualidade=3))
 empresas.append(Empresa("Moradia",     "CTI Imobiliária", "Aluguel, Centro", 1500.0, qualidade=7))
