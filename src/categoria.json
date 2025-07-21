@@ -1,0 +1,4 @@
+{
+    "categorias": ["Moradia", "Alimentação", "Transporte", "Saúde", "Educação"],
+    "percentuais": [0.35, 0.25, 0.10, 0.10, 0.10]
+}

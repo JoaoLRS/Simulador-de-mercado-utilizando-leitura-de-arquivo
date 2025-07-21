@@ -1,5 +1,7 @@
 import os
-from inseri_pessoa import *
+from inserir_pessoa import *
+from inserir_empresa import ler_empresas
+from inserir_categoria import ler_categorias, ler_percentuais
 
 
 # Códigos das cores de texto em Python
@@ -17,36 +19,6 @@ p = "\033[F"   # mover o cursor para o começo da linha anterior
 u = "\033[A"   # mover o cursor para cima uma linha
 
 # Parte 1, classe pessoa
-
-class Empresa:
-    def __init__(self, categoria, nome, produto, custo, qualidade):
-        self.nome = nome
-        self.categoria = categoria
-        self.produto = produto
-        self.custo = custo
-        self.qualidade = qualidade
-        self.margem = 0.05
-        self.oferta = 0
-        self.reposicao = 10
-        self.vendas = 0
-
-
-empresas = []
-categorias = [
-    "Moradia", 
-    "Alimentação", 
-    "Transporte", 
-    "Saúde", 
-    "Educação"
-]
-
-percentuais = [
-    0.35,  # Moradia
-    0.25,  # Alimentação
-    0.10,  # Transporte
-    0.10,  # Saúde
-    0.10,  # Educação
-]
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -149,7 +121,7 @@ def simular_mercado(pessoas, empresas, categorias, percentuais):
     for pessoa in pessoas:
         simular_pessoa(pessoa, empresas, categorias, percentuais)        
 
-def print_pessoas(pessoas):
+def print_pessoas(pessoas, categorias, percentuais):
     print()
     print("[PESSOAS]")
 
@@ -212,44 +184,18 @@ def print_empresas(empresas):
 
         print()
 
-# Parte 2, inicialização do mercado, pessoas e empresas
-
-#Ana essa é a função responssavel por ler os dados do arquivo e inserir as pessoas
-inserir_dados_finais("src/pessoas.txt")
-
-
-#TODO Você deve criar uma função parecida para inserir as empresas(esta localizada na pasta src/empresas.csv) 
-# e categoria (esta localizada na pasta src/catregorias.json) 
-empresas.append(Empresa("Moradia",     "    República A", "Aluguel, Várzea", 300.0,  qualidade=3))
-empresas.append(Empresa("Moradia",     "    República B", "Aluguel, Várzea", 300.0,  qualidade=3))
-empresas.append(Empresa("Moradia",     "CTI Imobiliária", "Aluguel, Centro", 1500.0, qualidade=7))
-empresas.append(Empresa("Moradia",     "Orla Smart Live", "Aluguel, Boa V.", 3000.0, qualidade=9))
-empresas.append(Empresa("Alimentação", "          CEASA", "Feira do Mês   ", 200.0,  qualidade=3))
-empresas.append(Empresa("Alimentação", "    Mix Matheus", "Feira do Mês   ", 900.0,  qualidade=5))
-empresas.append(Empresa("Alimentação", "  Pão de Açúcar", "Feira do Mês   ", 1500.0, qualidade=7))
-empresas.append(Empresa("Alimentação", "      Home Chef", "Chef em Casa   ", 6000.0, qualidade=9))
-empresas.append(Empresa("Transporte",  "  Grande Recife", "VEM  Ônibus    ", 150.0,  qualidade=3))
-empresas.append(Empresa("Transporte",  "           UBER", "Uber Moto      ", 200.0,  qualidade=4))
-empresas.append(Empresa("Transporte",  "             99", "99 Moto        ", 200.0,  qualidade=4))
-empresas.append(Empresa("Transporte",  "            BYD", "BYD Dolphin    ", 3000.0, qualidade=8))
-empresas.append(Empresa("Saúde",       "    Health Coop", "Plano de Saúde ", 200.0,  qualidade=2))
-empresas.append(Empresa("Saúde",       "        HapVida", "Plano de Saúde ", 650.0,  qualidade=5))
-empresas.append(Empresa("Saúde",       " Bradesco Saúde", "Plano de Saúde ", 800.0,  qualidade=5))
-empresas.append(Empresa("Saúde",       "     Sulamérica", "Plano de Saúde ", 850.0,  qualidade=5))
-empresas.append(Empresa("Educação",    "      Escolinha", "Mensalidade    ", 100.0,  qualidade=1))
-empresas.append(Empresa("Educação",    "     Mazzarello", "Mensalidade    ", 1200.0, qualidade=6))
-empresas.append(Empresa("Educação",    "      Arco Íris", "Mensalidade    ", 1800.0, qualidade=8))
-empresas.append(Empresa("Educação",    "Escola do Porto", "Mensalidade    ", 5000.0, qualidade=9))
-
-# Parte 3, simulação de mercado
-# Enquanto não for digitado "sair", simular o mercado
-def main():
+def main():  
+    pessoas = inserir_dados_finais("src/pessoas.txt")
+    empresas = ler_empresas("src/empresas.csv")
+    categorias = ler_categorias("src/categoria.json")
+    percentuais = ler_percentuais("src/categoria.json")
+    
     simular = True
     while simular:
         clear()
         print("[SIMULADOR DE RELAÇÕES DE MERCADO]")
     
-        print_pessoas(pessoas)        
+        print_pessoas(pessoas, categorias, percentuais)        
         print_empresas(empresas)
 
         # Aperte enter para avançar em 1 mês, digite um número para avançar N meses ou "sair" para encerrar
