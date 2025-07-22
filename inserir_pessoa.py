@@ -1,14 +1,16 @@
 from pessoa import Pessoa
 
-def add_pessoas(pessoas_lista, num_pessoas, patrimonio, salario, variacao=0.0):
-    for i in range(num_pessoas):
-        pessoas_lista.append(Pessoa(patrimonio + i * variacao, salario + i * variacao))
-
 def inserir_dados_finais(caminho):
-    pessoas = [] 
-    with open(f"{caminho}", 'r') as arquivo:
+    pessoas = []
+    with open(caminho, 'r', encoding='utf-8') as arquivo:
+        next(arquivo)  
         for linha in arquivo:
             valores = linha.strip().split(',')
-            if len(valores) == 4:
-                add_pessoas(pessoas, int(valores[0]), int(valores[1]), int(valores[2]), int(valores[3]))
+            if len(valores) >= 3:
+                try:
+                    patrimonio = int(valores[1].strip())
+                    salario = int(valores[2].strip())
+                    pessoas.append(Pessoa(patrimonio, salario))
+                except ValueError:
+                    print(f"Erro de conversão na linha: {linha.strip()}")
     return pessoas
